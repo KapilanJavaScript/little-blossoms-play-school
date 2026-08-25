@@ -230,6 +230,47 @@
     .form__consent input:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
     .section__body--center { margin-inline: auto; text-align: center; }
 
+    /* Interactive */
+    .scroll-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 80; height: 3px; pointer-events: none; }
+    .scroll-progress div { height: 100%; background: var(--coral); transform-origin: left center; transform: scaleX(0); }
+    .nav__link.is-active, .footer__links a.is-active { color: var(--coral); font-weight: 700; }
+
+    [data-reveal] { opacity: 1; }
+    html.js-ready [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.6,.2,1); }
+    html.js-ready [data-reveal].is-in { opacity: 1; transform: none; }
+
+    .program { width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: transparent; font: inherit; color: inherit; cursor: pointer; appearance: none; }
+    .program:first-child { border-top: 1px solid var(--line); }
+    .program:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
+    .program__main p { max-height: 0; opacity: 0; overflow: hidden; margin: 0; transition: max-height .35s ease, opacity .3s ease, margin .3s ease; }
+    .program.is-open .program__main p { max-height: 8rem; opacity: 1; margin-top: .55rem; }
+    .program__hours::after { display: inline-grid; place-items: center; width: 26px; height: 26px; margin-left: .6rem; border-radius: 50%; background: color-mix(in srgb, var(--coral) 15%, transparent); color: var(--coral); font-weight: 700; content: "+"; transition: transform .25s ease, background .25s ease; }
+    .program.is-open .program__hours::after { content: "\2212"; transform: rotate(180deg); background: var(--coral); color: #fff; }
+
+    /* Quiz */
+    .quiz { max-width: 900px; margin: 0 auto; }
+    .quiz__box { margin-top: 2rem; padding: 2rem; border-radius: 2rem; background: var(--cream); border: 2px solid var(--line); box-shadow: 0 18px 40px rgb(58 46 41 / .1); }
+    .quiz__q { margin: 0 0 1.4rem; font-family: "Quicksand", sans-serif; font-weight: 700; font-size: clamp(1.3rem,3vw,1.8rem); text-align: center; }
+    .quiz__options { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: .8rem; }
+    .quiz__options button { padding: 1rem 1.1rem; border-radius: 1rem; border: 2px solid var(--line); background: var(--paper); font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; transition: transform .16s ease, border-color .16s ease, background .16s ease; }
+    .quiz__options button:hover { transform: translateY(-3px); border-color: var(--coral); background: color-mix(in srgb, var(--coral) 10%, var(--paper)); }
+    .quiz__result { text-align: center; }
+    .quiz__result-kicker { margin: 0 0 .4rem; color: var(--coral); font-family: "Quicksand", sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; }
+    .quiz__result h3 { margin: 0; font-family: "Quicksand", sans-serif; font-size: 2.2rem; font-weight: 700; }
+    .quiz__result-meta { margin: .3rem 0 0; color: var(--muted); font-weight: 600; }
+    .quiz__result-text { margin: .9rem auto 0; color: var(--muted); font-size: 1.05rem; line-height: 1.55; max-width: 40ch; }
+    .quiz__result-cta { margin-top: 1.4rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
+    .quiz__again { border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+    .quiz__again:hover { color: var(--ink); }
+
+    /* Parents carousel */
+    .parents__controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.2rem; }
+    .parents__controls > button { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--line); background: var(--cream); color: var(--ink); font-size: 1.3rem; cursor: pointer; transition: transform .16s ease, border-color .16s ease; }
+    .parents__controls > button:hover { transform: translateY(-2px); border-color: var(--coral); }
+    .parents__dots { display: flex; gap: .4rem; }
+    .parents__dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--ink) 22%, transparent); cursor: pointer; transition: background .2s ease, transform .2s ease; }
+    .parents__dots button.on { background: var(--coral); transform: scale(1.3); }
+
     /* Footer */
     .footer { border-top: 1px solid var(--line); padding: 2.5rem clamp(1.25rem,5vw,4rem); background: var(--paper); }
     .footer__inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.2rem; }
@@ -265,6 +306,7 @@
 </head>
 <body>
   <div class="site">
+    <div class="scroll-progress" aria-hidden="true"><div></div></div>
 
     <header class="nav">
       <a href="#top" class="brand" aria-label="Little Blossoms Play School home">
@@ -371,36 +413,48 @@
         <h2 class="section__title section__title--center">Find your child's place</h2>
         <p class="section__body section__body--center">From gentle infant care to after-school fun, we meet every age where they are.</p>
         <div class="programs__rows">
-          <a class="program" href="#fees">
+          <button type="button" class="program">
             <div class="program__age program__age--leaf">8 mo - 1.5 yrs</div>
             <div class="program__main"><h3>Infant Care</h3><p>Gentle, loving care and first routines in a warm, soothing space for the youngest little ones.</p></div>
             <div class="program__hours">Flexible</div>
-          </a>
-          <a class="program" href="#fees">
+          </button>
+          <button type="button" class="program">
             <div class="program__age program__age--coral">1.5 - 3 years</div>
             <div class="program__main"><h3>Playgroup</h3><p>First friends, first words, first adventures. Gentle settling and sensorimotor play.</p></div>
             <div class="program__hours">2 hrs a day</div>
-          </a>
-          <a class="program" href="#fees">
+          </button>
+          <button type="button" class="program">
             <div class="program__age program__age--sun">3 - 4 years</div>
             <div class="program__main"><h3>Pre-K</h3><p>Confidence, sharing and early skills. Structured play that builds routine and curiosity.</p></div>
             <div class="program__hours">3 hrs a day</div>
-          </a>
-          <a class="program" href="#fees">
+          </button>
+          <button type="button" class="program">
             <div class="program__age program__age--aqua">4 - 6 years</div>
             <div class="program__main"><h3>Kindergarten</h3><p>School-readiness with heart. Letters, numbers, independence and a love of learning.</p></div>
             <div class="program__hours">4 hrs a day</div>
-          </a>
-          <a class="program" href="#fees">
+          </button>
+          <button type="button" class="program">
             <div class="program__age program__age--coral">1.5 - 12 years</div>
             <div class="program__main"><h3>Day Care</h3><p>A safe, homely space beyond school hours, with play, meals and a rest.</p></div>
             <div class="program__hours">Full day</div>
-          </a>
-          <a class="program" href="#fees">
+          </button>
+          <button type="button" class="program">
             <div class="program__age program__age--sun">3 - 12 years</div>
             <div class="program__main"><h3>After-school</h3><p>An activity club after school: music, art, sport and a little homework help.</p></div>
             <div class="program__hours">2 hrs a day</div>
-          </a>
+          </button>
+        </div>
+      </section>
+
+      <section class="section quiz" id="quiz">
+        <h2 class="section__title section__title--center">Find your child's <em>place</em></h2>
+        <p class="section__body section__body--center">Two quick questions, one happy answer.</p>
+        <div class="quiz__box">
+          <div class="quiz__step" id="quiz-step">
+            <p class="quiz__q" id="quiz-q">How old is your little one?</p>
+            <div class="quiz__options" id="quiz-opts"></div>
+          </div>
+          <div class="quiz__result" id="quiz-result" hidden></div>
         </div>
       </section>
 
@@ -473,9 +527,15 @@
 
       <section class="section parents" id="parents">
         <h2 class="section__title section__title--center">What parents say</h2>
-        <div class="parents__wall">
+        <div class="parents__wall" id="parents-wall">
           <figure class="quote"><blockquote><span class="quote__mark" aria-hidden="true">&ldquo;</span>My daughter runs to the gate every morning. She has bloomed here, in every way.</blockquote><figcaption><strong>Ananya R.</strong><span>Mum of Aadhya, age 4</span></figcaption></figure>
           <figure class="quote"><blockquote><span class="quote__mark" aria-hidden="true">&ldquo;</span>The WhatsApp updates during the day make us feel part of her little world.</blockquote><figcaption><strong>Karthik S.</strong><span>Dad of Vihaan, age 3</span></figcaption></figure>
+          <figure class="quote"><blockquote><span class="quote__mark" aria-hidden="true">&ldquo;</span>Infant care here felt like family from day one. The teachers clearly adore our baby.</blockquote><figcaption><strong>Meera P.</strong><span>Mum of Ria, 16 months</span></figcaption></figure>
+        </div>
+        <div class="parents__controls" aria-label="Testimonials carousel">
+          <button type="button" id="prev-t" aria-label="Previous testimonial">&#8249;</button>
+          <span class="parents__dots" id="t-dots"></span>
+          <button type="button" id="next-t" aria-label="Next testimonial">&#8250;</button>
         </div>
       </section>
 
@@ -559,7 +619,152 @@
   </div>
 
   <script>
+    var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Scroll progress bar */
+    var prog = document.querySelector('.scroll-progress div');
+    function updateProg() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+    }
+    if (!RM) { window.addEventListener('scroll', updateProg, { passive: true }); window.addEventListener('resize', updateProg); updateProg(); }
+
+    /* Reveal on scroll (visible by default; animated only after JS arms it) */
+    if (!RM) {
+      document.documentElement.classList.add('js-ready');
+      var reveals = document.querySelectorAll('.about__copy, .about__art, .why-card, .cur-card, .curriculum__copy, .day__head, .bento-cell, .gallery__card, .fee, .visit__copy, .form, .parents__wall, .quote');
+      reveals.forEach(function (el) { el.setAttribute('data-reveal', ''); });
+      var rio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); rio.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      reveals.forEach(function (el) { rio.observe(el); });
+    }
+
+    /* Program accordion */
+    document.querySelectorAll('.program').forEach(function (row) {
+      row.addEventListener('click', function () { row.classList.toggle('is-open'); });
+    });
+
+    /* Magnetic primary CTA */
+    if (!RM && matchMedia('(hover: hover)').matches) {
+      var magBtn = document.querySelector('.hero .cta-ticket');
+      if (magBtn) {
+        magBtn.addEventListener('mousemove', function (e) {
+          var r = magBtn.getBoundingClientRect();
+          var x = (e.clientX - r.left - r.width / 2) / r.width;
+          var y = (e.clientY - r.top - r.height / 2) / r.height;
+          magBtn.style.transform = 'translate(' + (x * 10) + 'px,' + (y * 8) + 'px)';
+        });
+        magBtn.addEventListener('mouseleave', function () { magBtn.style.transform = ''; });
+      }
+    }
+
+    /* Garden parallax */
+    if (!RM) {
+      var hero = document.querySelector('.hero');
+      if (hero) {
+        hero.addEventListener('mousemove', function (e) {
+          var r = hero.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          hero.style.setProperty('--px', (x * 14).toFixed(1));
+          hero.style.setProperty('--py', (y * 10).toFixed(1));
+        });
+      }
+    }
+
+    /* Active nav on scroll */
+    var links = document.querySelectorAll('.nav__link, .footer__links a');
+    var sectionIds = ['garden', 'why', 'programs', 'day', 'fees'].filter(function (id) { return document.getElementById(id); });
+    var aio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { setActive(e.target.id); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sectionIds.forEach(function (id) { var el = document.getElementById(id); if (el) aio.observe(el); });
+    function setActive(id) {
+      links.forEach(function (l) { l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+    }
+
+    /* Quiz */
+    var QUIZ = {
+      ageOptions: [['infant', 'Under 1.5 yrs'], ['play', '1.5 - 3 yrs'], ['prek', '3 - 4 yrs'], ['kg', '4 - 6 yrs'], ['care', 'School age, after hours']],
+      priorityOptions: [['care', 'Tender care & routines'], ['play', 'Play & first friends'], ['school', 'School-readiness'], ['care', 'A safe space all day']],
+      programs: {
+        infant: { name: 'Infant Care', meta: '8 mo - 1.5 yrs &middot; Flexible', text: 'Gentle, loving care and first routines in a warm, soothing space for the youngest little ones.' },
+        play: { name: 'Playgroup', meta: '1.5 - 3 yrs &middot; 2 hrs a day', text: 'First friends, first words, first adventures. Gentle settling and sensorimotor play.' },
+        prek: { name: 'Pre-K', meta: '3 - 4 yrs &middot; 3 hrs a day', text: 'Confidence, sharing and early skills. Structured play that builds routine and curiosity.' },
+        kg: { name: 'Kindergarten', meta: '4 - 6 yrs &middot; 4 hrs a day', text: 'School-readiness with heart. Letters, numbers, independence and a love of learning.' },
+        care: { name: 'Day Care', meta: '1.5 - 12 yrs &middot; Full day', text: 'A safe, homely space beyond school hours, with play, meals and a rest.' }
+      }
+    };
+    var quizStep = document.getElementById('quiz-step');
+    var quizQ = document.getElementById('quiz-q');
+    var quizOpts = document.getElementById('quiz-opts');
+    var quizResult = document.getElementById('quiz-result');
+    var quizAge = '';
+    var quizPriority = '';
+    function pickQuiz(value) {
+      if (!quizAge) { quizAge = value; quizQ.textContent = 'What matters most to you right now?'; renderQuizOpts(QUIZ.priorityOptions, true); }
+      else {
+        quizPriority = value;
+        var age = quizAge, pri = quizPriority;
+        var result;
+        if (age === 'infant') result = QUIZ.programs.infant;
+        else if (age === 'care' || pri === 'care') result = QUIZ.programs.care;
+        else if (age === 'kg' || pri === 'school') result = QUIZ.programs.kg;
+        else if (age === 'prek') result = QUIZ.programs.prek;
+        else result = QUIZ.programs.play;
+        quizStep.hidden = true;
+        quizResult.innerHTML =
+          '<p class="quiz__result-kicker">A great place to start</p><h3>' + result.name + '</h3>' +
+          '<p class="quiz__result-meta">' + result.meta + '</p>' +
+          '<p class="quiz__result-text">' + result.text + '</p>' +
+          '<div class="quiz__result-cta">' +
+          '<a class="cta-ticket" href="https://wa.me/919000000000?text=Hi%20Little%20Blossoms!%20I%27d%20like%20to%20book%20a%20visit." target="_blank" rel="noreferrer"><span class="cta-ticket__text">Book a visit</span></a>' +
+          '<button type="button" class="quiz__again" onclick="resetQuiz()">Start again</button></div>';
+        quizResult.hidden = false;
+      }
+    }
+    function renderQuizOpts(list, isPriority) {
+      quizOpts.innerHTML = '';
+      list.forEach(function (o) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.textContent = o[1];
+        b.addEventListener('click', function () { pickQuiz(o[0]); });
+        quizOpts.appendChild(b);
+      });
+    }
+    function resetQuiz() {
+      quizAge = ''; quizPriority = '';
+      quizQ.textContent = 'How old is your little one?';
+      quizResult.hidden = true; quizStep.hidden = false;
+      renderQuizOpts(QUIZ.ageOptions, false);
+    }
+    renderQuizOpts(QUIZ.ageOptions, false);
+
+    /* Testimonial carousel */
+    var quotes = Array.prototype.slice.call(document.querySelectorAll('#parents-wall .quote'));
+    var dotsWrap = document.getElementById('t-dots');
+    var tIndex = 0;
+    quotes.forEach(function (q, i) {
+      if (i !== 0) q.style.display = 'none';
+      var d = document.createElement('button');
+      d.type = 'button'; d.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+      if (i === 0) d.classList.add('on');
+      d.addEventListener('click', function () { showT(i); });
+      dotsWrap.appendChild(d);
+    });
+    var dots = Array.prototype.slice.call(dotsWrap.children);
+    function showT(i) {
+      tIndex = (i + quotes.length) % quotes.length;
+      quotes.forEach(function (q, j) { q.style.display = j === tIndex ? '' : 'none'; });
+      dots.forEach(function (d, j) { d.classList.toggle('on', j === tIndex); });
+    }
+    document.getElementById('prev-t').addEventListener('click', function () { showT(tIndex - 1); });
+    document.getElementById('next-t').addEventListener('click', function () { showT(tIndex + 1); });
+    if (!RM) setInterval(function () { showT(tIndex + 1); }, 6000);
+
+    /* Book-a-visit form */
     var form = document.getElementById('visit-form');
     var nameEl = document.getElementById('f-name');
     var phoneEl = document.getElementById('f-phone');
