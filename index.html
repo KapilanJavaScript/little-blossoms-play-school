@@ -643,6 +643,7 @@
             <h3>Book a visit</h3>
             <p class="form__hint">Tell us a little and we'll reply by WhatsApp.</p>
             <label class="field"><span>Parent's name</span><input id="f-name" placeholder="Your name" required /></label>
+            <label class="field"><span>Child's name</span><input id="f-child" placeholder="Your little one's name" /></label>
             <label class="field"><span>Phone</span><input id="f-phone" placeholder="+91" type="tel" required /></label>
             <label class="field"><span>Preferred program</span>
               <select id="f-program"><option value="">Select a program</option><option>Infant Care (8 mo - 1.5 yrs)</option><option>Playgroup (1.5 - 3 years)</option><option>Pre-K (3 - 4 years)</option><option>Kindergarten (4 - 6 years)</option><option>Day Care (1.5 - 12 years)</option><option>After-school (3 - 12 years)</option></select>
@@ -844,6 +845,7 @@
     /* Book-a-visit form */
     var form = document.getElementById('visit-form');
     var nameEl = document.getElementById('f-name');
+    var childEl = document.getElementById('f-child');
     var phoneEl = document.getElementById('f-phone');
     var programEl = document.getElementById('f-program');
     var ageEl = document.getElementById('f-age');
@@ -860,7 +862,7 @@
     update();
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var text = 'Hi Little Blossoms! I\'d like to book a visit.\nName: ' + nameEl.value + '\nPhone: ' + phoneEl.value + '\nProgram: ' + programEl.value + '\nChild\'s age: ' + ageEl.value + '\nCentre: ' + centreEl.value + '\nI agree to be contacted by Little Blossoms.';
+      var text = 'Hi Little Blossoms! I\'d like to book a visit.\nParent: ' + nameEl.value + '\nChild: ' + (childEl.value || 'Not said') + '\nPhone: ' + phoneEl.value + '\nProgram: ' + programEl.value + '\nChild\'s age: ' + ageEl.value + '\nCentre: ' + centreEl.value + '\nI agree to be contacted by Little Blossoms.';
       window.open('https://wa.me/919000000000?text=' + encodeURIComponent(text), '_blank');
       submit.textContent = 'Opening WhatsApp...';
     });
