@@ -674,7 +674,7 @@
               <select id="f-program"><option value="">Select a program</option><option>Infant Care (8 mo - 1.5 yrs)</option><option>Playgroup (1.5 - 3 years)</option><option>Pre-K (3 - 4 years)</option><option>Kindergarten (4 - 6 years)</option><option>Day Care (1.5 - 12 years)</option><option>After-school (3 - 12 years)</option></select>
             </label>
             <label class="field"><span>Child's age</span>
-              <select id="f-age"><option value="">Select an age</option><option>8 months - 1.5 years</option><option>1.5 - 3 years</option><option>3 - 4 years</option><option>4 - 6 years</option></select>
+              <select id="f-age"><option value="">Select an age</option><option>8 months - 1.5 years</option><option>1.5 - 3 years</option><option>3 - 4 years</option><option>4 - 6 years</option><option>1.5 - 12 years</option></select>
             </label>
             <label class="field"><span>Centre</span>
               <select id="f-centre"><option>Green Park, Bengaluru</option></select>
@@ -820,6 +820,7 @@
     var quizResult = document.getElementById('quiz-result');
     var quizAge = '';
     var quizPriority = '';
+    var lastResultKey = '';
     function pickQuiz(value) {
       if (!quizAge) { quizAge = value; quizQ.textContent = 'What matters most to you right now?'; renderQuizOpts(QUIZ.priorityOptions, true); }
       else {
@@ -831,13 +832,14 @@
         else if (age === 'kg' || pri === 'school') result = QUIZ.programs.kg;
         else if (age === 'prek') result = QUIZ.programs.prek;
         else result = QUIZ.programs.play;
+        lastResultKey = age;
         quizStep.hidden = true;
         quizResult.innerHTML =
           '<p class="quiz__result-kicker">A great place to start</p><h3>' + result.name + '</h3>' +
           '<p class="quiz__result-meta">' + result.meta + '</p>' +
           '<p class="quiz__result-text">' + result.text + '</p>' +
           '<div class="quiz__result-cta">' +
-          '<a class="cta-ticket" href="#visit"><span class="cta-ticket__text">Book a visit</span></a>' +
+          '<a class="cta-ticket" href="#visit" onclick="quizBook(event)"><span class="cta-ticket__text">Book a visit</span></a>' +
           '<button type="button" class="quiz__again" onclick="resetQuiz()">Start again</button></div>';
         quizResult.hidden = false;
       }
@@ -851,6 +853,20 @@
         quizOpts.appendChild(b);
       });
     }
+
+    function quizBook(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      var labels = { infant: '8 months - 1.5 years', play: '1.5 - 3 years', prek: '3 - 4 years', kg: '4 - 6 years', care: '1.5 - 12 years' };
+      if (lastResultKey && labels[lastResultKey]) ageEl.value = labels[lastResultKey];
+      var progName = lastResultKey && QUIZ.programs[lastResultKey] ? QUIZ.programs[lastResultKey].name : '';
+      if (progName) {
+        for (var i = 0; i < programEl.options.length; i++) {
+          if (programEl.options[i].text.indexOf(progName) === 0) { programEl.value = programEl.options[i].value; break; }
+        }
+      }
+      document.getElementById('visit').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function resetQuiz() {
       quizAge = ''; quizPriority = '';
       quizQ.textContent = 'How old is your little one?';
