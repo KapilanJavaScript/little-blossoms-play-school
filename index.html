@@ -249,6 +249,17 @@
     .form__submit:hover:not(:disabled) { transform: translateY(-2px); }
     .form__submit:disabled { opacity: .5; cursor: not-allowed; }
     .form__note { margin: -.4rem 0 0; color: var(--muted); font-size: .82rem; }
+
+    /* Visit map — address + Google Map side by side */
+    .visit__map { display: grid; grid-template-columns: minmax(280px,360px) 1fr; gap: 1.4rem; margin: 2.6rem auto 0; max-width: 1200px; align-items: stretch; }
+    .visit__map-card { background: var(--paper); border: 2px solid var(--line); border-radius: 1.5rem; padding: 1.6rem; display: flex; flex-direction: column; justify-content: center; gap: .8rem; }
+    .visit__map-card h3 { margin: 0; font-family: "Quicksand", sans-serif; font-size: 1.3rem; font-weight: 700; }
+    .visit__map-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .visit__map-card a { color: var(--coral); font-weight: 600; text-decoration: none; width: max-content; }
+    .visit__map-card a:hover { text-decoration: underline; }
+    .visit__map-embed { border-radius: 1.5rem; overflow: hidden; border: 2px solid var(--line); min-height: 300px; }
+    .visit__map-embed iframe { display: block; width: 100%; height: 100%; min-height: 300px; border: 0; }
+    @media (max-width: 860px) { .visit__map { grid-template-columns: 1fr; } }
     .form__consent { display: flex; align-items: flex-start; gap: .6rem; color: var(--muted); font-size: .88rem; line-height: 1.4; }
     .form__consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--coral); flex: 0 0 auto; }
     .form__consent input:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
@@ -684,6 +695,17 @@
             <button class="form__submit" type="submit">Book via WhatsApp</button>
             <p class="form__note">No spam. This opens a WhatsApp chat with your details ready to send.</p>
           </form>
+        </div>
+
+        <div class="visit__map">
+          <div class="visit__map-card">
+            <h3>Find us</h3>
+            <p>12 Blossom Lane, Green Park, Bengaluru 560001</p>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001" target="_blank" rel="noreferrer">Get directions</a>
+          </div>
+          <div class="visit__map-embed">
+            <iframe src="https://www.google.com/maps?q=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001&amp;output=embed" title="Little Blossoms Play School on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
     </main>
