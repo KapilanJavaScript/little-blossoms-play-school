@@ -106,6 +106,7 @@
     .about__dot--leaf { background: var(--leaf); }
     .about__dot--aqua { background: var(--teal); }
     .about__dot--sun { background: var(--sun); }
+    .about__dot--coral { background: var(--coral); }
 
     /* Programs */
     .programs { background: var(--cream); max-width: 1200px; margin: 0 auto; }
@@ -116,6 +117,7 @@
     .program__age--coral { background: var(--coral); }
     .program__age--sun { background: #e6a800; }
     .program__age--aqua { background: var(--teal); }
+    .program__age--leaf { background: var(--leaf); }
     .program__main h3 { margin: 0; font-family: "Quicksand", sans-serif; font-size: 1.35rem; font-weight: 700; }
     .program__main p { margin: .3rem 0 0; color: var(--muted); max-width: 48ch; font-size: .98rem; line-height: 1.55; }
     .program__hours { color: var(--muted); font-weight: 600; font-size: .95rem; }
@@ -176,6 +178,35 @@
     .fee__line { margin: 0 0 1.6rem; color: var(--muted); font-weight: 500; }
     .fee .cta-ticket { margin-top: auto; }
 
+    /* Why */
+    .why { max-width: 1200px; margin: 0 auto; }
+    .why__grid { margin-top: 2.4rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .why-card { display: flex; flex-direction: column; gap: .35rem; padding: 1.4rem 1.4rem 1.5rem; border-radius: 1.5rem; border: 2px solid var(--line); background: var(--cream); }
+    .why-card--coral { border-top: 5px solid var(--coral); }
+    .why-card--sun { border-top: 5px solid var(--sun); }
+    .why-card--aqua { border-top: 5px solid var(--teal); }
+    .why-card--leaf { border-top: 5px solid var(--leaf); }
+    .why-card__stat { font-family: "Quicksand", sans-serif; font-weight: 700; font-size: 2.1rem; line-height: 1.05; color: var(--coral); }
+    .why-card--sun .why-card__stat { color: #e6a800; }
+    .why-card--aqua .why-card__stat { color: var(--teal); }
+    .why-card--leaf .why-card__stat { color: var(--leaf); }
+    .why-card__label { font-family: "Quicksand", sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .why-card__text { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+
+    /* Curriculum */
+    .curriculum { background: var(--cream); max-width: 1200px; margin: 0 auto; }
+    .curriculum__layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
+    .curriculum__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .cur-card { display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem; border-radius: 1.5rem; border: 2px solid var(--line); background: var(--paper); }
+    .cur-card__icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: .9rem; background: var(--cream); border: 1.5px solid var(--line); }
+    .cur-card--coral .cur-card__icon { background: color-mix(in srgb, var(--coral) 16%, var(--cream)); }
+    .cur-card--sun .cur-card__icon { background: color-mix(in srgb, var(--sun) 24%, var(--cream)); }
+    .cur-card--aqua .cur-card__icon { background: color-mix(in srgb, var(--teal) 16%, var(--cream)); }
+    .cur-card--leaf .cur-card__icon { background: color-mix(in srgb, var(--leaf) 16%, var(--cream)); }
+    .cur-card__icon svg { width: 24px; height: 24px; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .cur-card h3 { margin: 0; font-family: "Quicksand", sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .cur-card p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+
     /* Visit / contact */
     .visit { background: var(--cream); border-top: 1px solid var(--line); }
     .visit__inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4rem); align-items: start; }
@@ -194,6 +225,10 @@
     .form__submit:hover:not(:disabled) { transform: translateY(-2px); }
     .form__submit:disabled { opacity: .5; cursor: not-allowed; }
     .form__note { margin: -.4rem 0 0; color: var(--muted); font-size: .82rem; }
+    .form__consent { display: flex; align-items: flex-start; gap: .6rem; color: var(--muted); font-size: .88rem; line-height: 1.4; }
+    .form__consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--coral); flex: 0 0 auto; }
+    .form__consent input:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+    .section__body--center { margin-inline: auto; text-align: center; }
 
     /* Footer */
     .footer { border-top: 1px solid var(--line); padding: 2.5rem clamp(1.25rem,5vw,4rem); background: var(--paper); }
@@ -212,10 +247,12 @@
       .about { grid-template-columns: 1fr; }
       .about__art { min-height: 260px; }
       .day__bento, .gallery__row { grid-template-columns: repeat(2, 1fr); }
+      .why__grid { grid-template-columns: repeat(2, 1fr); }
+      .curriculum__layout { grid-template-columns: 1fr; }
       .visit__inner { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
-      .day__bento, .gallery__row, .fees__grid, .parents__wall { grid-template-columns: 1fr; }
+      .day__bento, .gallery__row, .fees__grid, .parents__wall, .why__grid, .curriculum__grid { grid-template-columns: 1fr; }
       .program { grid-template-columns: 1fr; gap: .7rem; align-items: start; }
       .program__age { justify-self: start; }
       .program__hours { padding-bottom: .4rem; }
@@ -238,6 +275,7 @@
       </a>
       <nav class="nav__links" aria-label="Primary">
         <a class="nav__link" href="#garden">Our garden</a>
+        <a class="nav__link" href="#why">Why us</a>
         <a class="nav__link" href="#programs">Programs</a>
         <a class="nav__link" href="#day">A day here</a>
         <a class="nav__link" href="#parents">Parents</a>
@@ -258,7 +296,7 @@
           <div class="hero__copy">
             <p class="eyebrow">A garden that grows children</p>
             <h1 class="hero__title">Play today.<br><em>Blossom</em> tomorrow.</h1>
-            <p class="hero__sub">A warm, colourful playschool for little ones from 18 months to 6 years. Come see the garden where every child blooms.</p>
+            <p class="hero__sub">A warm, colourful playschool for little ones from 8 months to 6 years, with day care. Come see the garden where every child blooms.</p>
             <div class="hero__cta">
               <a class="cta-ticket" href="https://wa.me/919000000000?text=Hi%20Little%20Blossoms!%20I'd%20like%20to%20book%20a%20visit." target="_blank" rel="noreferrer">
                 <span class="cta-ticket__text">Book a visit</span>
@@ -267,7 +305,7 @@
               <a class="cta-stem" href="#programs"><span>View programs</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12m-5-5 5 5-5 5"/></svg></a>
             </div>
             <ul class="hero__mini">
-              <li>18 months to 6 years</li>
+              <li>8 months to 6 years</li>
               <li>Outdoor garden play</li>
               <li>WhatsApp updates</li>
             </ul>
@@ -312,13 +350,32 @@
             <li><span class="about__dot--leaf"></span> Low child-to-teacher ratios</li>
             <li><span class="about__dot--aqua"></span> Daily outdoor garden time</li>
             <li><span class="about__dot--sun"></span> Weekly WhatsApp photo updates</li>
-          </ul>
+</ul>
+      </div>
+    </section>
+
+      <section class="section why" id="why">
+        <h2 class="section__title">Why <em>Little Blossoms</em></h2>
+        <p class="section__body">The things parents ask about first, answered plainly.</p>
+        <div class="why__grid">
+          <div class="why-card why-card--coral"><span class="why-card__stat">4:1</span><span class="why-card__label">Infant ratio</span><p class="why-card__text">Four little ones per teacher, so every baby gets real attention.</p></div>
+          <div class="why-card why-card--sun"><span class="why-card__stat">7:1</span><span class="why-card__label">Preschool ratio</span><p class="why-card__text">Small groups keep learning personal and safe.</p></div>
+          <div class="why-card why-card--leaf"><span class="why-card__stat">Daily</span><span class="why-card__label">Outdoor garden</span><p class="why-card__text">Sun, digging and climbing every single day, whatever the weather.</p></div>
+          <div class="why-card why-card--aqua"><span class="why-card__stat">Trained</span><span class="why-card__label">Dear teachers</span><p class="why-card__text">In-house teacher training and gentle daily observation of each child.</p></div>
+          <div class="why-card why-card--coral"><span class="why-card__stat">On call</span><span class="why-card__label">Safety first</span><p class="why-card__text">A secure campus, CCTV and a doctor on call for peace of mind.</p></div>
+          <div class="why-card why-card--sun"><span class="why-card__stat">WhatsApp</span><span class="why-card__label">You stay close</span><p class="why-card__text">Day-to-day photos and progress notes sent straight to your phone.</p></div>
         </div>
       </section>
 
       <section class="section programs" id="programs">
-        <h2 class="section__title section__title--center">Find your child's age</h2>
+        <h2 class="section__title section__title--center">Find your child's place</h2>
+        <p class="section__body section__body--center">From gentle infant care to after-school fun, we meet every age where they are.</p>
         <div class="programs__rows">
+          <a class="program" href="#fees">
+            <div class="program__age program__age--leaf">8 mo - 1.5 yrs</div>
+            <div class="program__main"><h3>Infant Care</h3><p>Gentle, loving care and first routines in a warm, soothing space for the youngest little ones.</p></div>
+            <div class="program__hours">Flexible</div>
+          </a>
           <a class="program" href="#fees">
             <div class="program__age program__age--coral">1.5 - 3 years</div>
             <div class="program__main"><h3>Playgroup</h3><p>First friends, first words, first adventures. Gentle settling and sensorimotor play.</p></div>
@@ -334,6 +391,36 @@
             <div class="program__main"><h3>Kindergarten</h3><p>School-readiness with heart. Letters, numbers, independence and a love of learning.</p></div>
             <div class="program__hours">4 hrs a day</div>
           </a>
+          <a class="program" href="#fees">
+            <div class="program__age program__age--coral">1.5 - 12 years</div>
+            <div class="program__main"><h3>Day Care</h3><p>A safe, homely space beyond school hours, with play, meals and a rest.</p></div>
+            <div class="program__hours">Full day</div>
+          </a>
+          <a class="program" href="#fees">
+            <div class="program__age program__age--sun">3 - 12 years</div>
+            <div class="program__main"><h3>After-school</h3><p>An activity club after school: music, art, sport and a little homework help.</p></div>
+            <div class="program__hours">2 hrs a day</div>
+          </a>
+        </div>
+      </section>
+
+      <section class="section curriculum" id="curriculum">
+        <div class="curriculum__layout">
+          <div class="curriculum__copy">
+            <h2 class="section__title">How <em>children learn</em></h2>
+            <p class="section__body">Our approach is simple and research-backed: children grow when they feel safe, are free to explore, and are met with warmth. Every day balances the four things that matter most.</p>
+            <ul class="about__points">
+              <li><span class="about__dot--coral"></span> Research-based, age-appropriate play</li>
+              <li><span class="about__dot--leaf"></span> Daily outdoor + sensory time</li>
+              <li><span class="about__dot--sun"></span> Parent updates, every day</li>
+            </ul>
+          </div>
+          <div class="curriculum__grid">
+            <div class="cur-card cur-card--coral"><span class="cur-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6v6H4zM10 8h6v6h-6zM16 8l4 4v2h-4zM10 14v6M4 8l4-4 2 4"/></svg></span><h3>Play is the work</h3><p>Children learn best by doing. Our day is built around guided, joyful play.</p></div>
+            <div class="cur-card cur-card--leaf"><span class="cur-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 8 9 6 5 6c0 4 3 6 7 6zM12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/></svg></span><h3>Montessori-inspired</h3><p>Independent choice and hands-on materials that build focus and self-reliance.</p></div>
+            <div class="cur-card cur-card--sun"><span class="cur-card__icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></span><h3>Nature &amp; outdoors</h3><p>Real outdoor time daily, because curiosity grows outside four walls.</p></div>
+            <div class="cur-card cur-card--aqua"><span class="cur-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.6 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><h3>Holistic growth</h3><p>Social, emotional, physical and intellectual skills, balanced every day.</p></div>
+          </div>
         </div>
       </section>
 
@@ -430,9 +517,16 @@
             <p class="form__hint">Tell us a little and we'll reply by WhatsApp.</p>
             <label class="field"><span>Parent's name</span><input id="f-name" placeholder="Your name" required /></label>
             <label class="field"><span>Phone</span><input id="f-phone" placeholder="+91" type="tel" required /></label>
-            <label class="field"><span>Child's age</span>
-              <select id="f-age"><option value="">Select an age</option><option>1.5 - 3 years</option><option>3 - 4 years</option><option>4 - 6 years</option></select>
+            <label class="field"><span>Preferred program</span>
+              <select id="f-program"><option value="">Select a program</option><option>Infant Care (8 mo - 1.5 yrs)</option><option>Playgroup (1.5 - 3 years)</option><option>Pre-K (3 - 4 years)</option><option>Kindergarten (4 - 6 years)</option><option>Day Care (1.5 - 12 years)</option><option>After-school (3 - 12 years)</option></select>
             </label>
+            <label class="field"><span>Child's age</span>
+              <select id="f-age"><option value="">Select an age</option><option>8 months - 1.5 years</option><option>1.5 - 3 years</option><option>3 - 4 years</option><option>4 - 6 years</option></select>
+            </label>
+            <label class="field"><span>Centre</span>
+              <select id="f-centre"><option>Green Park, Bengaluru</option></select>
+            </label>
+            <label class="form__consent"><input id="f-consent" type="checkbox" /><span>I agree to be contacted by Little Blossoms about my enquiry.</span></label>
             <button class="form__submit" type="submit">Book via WhatsApp</button>
             <p class="form__note">No spam. This opens a WhatsApp chat with your details ready to send.</p>
           </form>
@@ -449,7 +543,7 @@
           <span class="brand__word">Little <em>Blossoms</em></span>
         </a>
         <nav class="footer__links" aria-label="Footer">
-          <a href="#garden">Our garden</a><a href="#programs">Programs</a><a href="#day">A day here</a><a href="#parents">Parents</a><a href="#fees">Fees</a>
+          <a href="#garden">Our garden</a><a href="#why">Why us</a><a href="#programs">Programs</a><a href="#day">A day here</a><a href="#fees">Fees</a>
         </nav>
         <p class="footer__contact">12 Blossom Lane, Green Park, Bengaluru 560001 &middot; +91 90000 00000 &middot; hello@littleblossoms.in</p>
         <p class="footer__copy">&copy; <span id="year"></span> Little Blossoms Play School. Made with love in the garden.</p>
@@ -469,18 +563,22 @@
     var form = document.getElementById('visit-form');
     var nameEl = document.getElementById('f-name');
     var phoneEl = document.getElementById('f-phone');
+    var programEl = document.getElementById('f-program');
     var ageEl = document.getElementById('f-age');
+    var centreEl = document.getElementById('f-centre');
+    var consentEl = document.getElementById('f-consent');
     var submit = form.querySelector('.form__submit');
     function update() {
-      var ok = nameEl.value.trim() && phoneEl.value.trim();
+      var ok = nameEl.value.trim() && phoneEl.value.trim() && consentEl.checked;
       submit.disabled = !ok;
     }
     nameEl.addEventListener('input', update);
     phoneEl.addEventListener('input', update);
+    consentEl.addEventListener('change', update);
     update();
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var text = 'Hi Little Blossoms! I\'d like to book a visit.\nName: ' + nameEl.value + '\nPhone: ' + phoneEl.value + '\nChild\'s age: ' + ageEl.value;
+      var text = 'Hi Little Blossoms! I\'d like to book a visit.\nName: ' + nameEl.value + '\nPhone: ' + phoneEl.value + '\nProgram: ' + programEl.value + '\nChild\'s age: ' + ageEl.value + '\nCentre: ' + centreEl.value + '\nI agree to be contacted by Little Blossoms.';
       window.open('https://wa.me/919000000000?text=' + encodeURIComponent(text), '_blank');
       submit.textContent = 'Opening WhatsApp...';
     });
