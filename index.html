@@ -250,14 +250,15 @@
     .form__submit:disabled { opacity: .5; cursor: not-allowed; }
     .form__note { margin: -.4rem 0 0; color: var(--muted); font-size: .82rem; }
 
-    /* Visit map — address + Google Map side by side */
-    .visit__map { display: grid; grid-template-columns: minmax(280px,360px) 1fr; gap: 1.4rem; margin: 2.6rem auto 0; max-width: 1200px; align-items: stretch; }
-    .visit__map-card { background: var(--paper); border: 2px solid var(--line); border-radius: 1.5rem; padding: 1.6rem; display: flex; flex-direction: column; justify-content: center; gap: .8rem; }
-    .visit__map-card h3 { margin: 0; font-family: "Quicksand", sans-serif; font-size: 1.3rem; font-weight: 700; }
+    /* Visit location — separate shaded bubble below the form */
+    .visit__location { margin: 3rem auto 0; max-width: 1200px; padding: clamp(1.6rem,3.5vw,2.6rem); border-radius: 2rem; background: linear-gradient(135deg, var(--lav) 0%, color-mix(in srgb, var(--lav) 55%, var(--cream)) 100%); border: 1.5px solid color-mix(in srgb, var(--grape) 14%, transparent); box-shadow: 0 14px 34px rgb(74 29 135 / .08); }
+    .visit__location-title { margin: 0 0 1.2rem; font-family: "Quicksand", sans-serif; font-size: 1.5rem; font-weight: 700; }
+    .visit__map { display: grid; grid-template-columns: minmax(260px,340px) 1fr; gap: 1.4rem; align-items: stretch; }
+    .visit__map-card { background: var(--cream); border: 1.5px solid var(--line); border-radius: 1.25rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: .8rem; }
     .visit__map-card p { margin: 0; color: var(--muted); line-height: 1.55; }
     .visit__map-card a { color: var(--coral); font-weight: 600; text-decoration: none; width: max-content; }
     .visit__map-card a:hover { text-decoration: underline; }
-    .visit__map-embed { border-radius: 1.5rem; overflow: hidden; border: 2px solid var(--line); min-height: 300px; }
+    .visit__map-embed { border-radius: 1.25rem; overflow: hidden; border: 1.5px solid var(--line); min-height: 300px; background: #fff; }
     .visit__map-embed iframe { display: block; width: 100%; height: 100%; min-height: 300px; border: 0; }
     @media (max-width: 860px) { .visit__map { grid-template-columns: 1fr; } }
     .form__consent { display: flex; align-items: flex-start; gap: .6rem; color: var(--muted); font-size: .88rem; line-height: 1.4; }
@@ -697,14 +698,16 @@
           </form>
         </div>
 
-        <div class="visit__map">
-          <div class="visit__map-card">
-            <h3>Find us</h3>
-            <p>12 Blossom Lane, Green Park, Bengaluru 560001</p>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001" target="_blank" rel="noreferrer">Get directions</a>
-          </div>
-          <div class="visit__map-embed">
-            <iframe src="https://www.google.com/maps?q=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001&amp;output=embed" title="Little Blossoms Play School on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="visit__location">
+          <h3 class="visit__location-title">Where to find us</h3>
+          <div class="visit__map">
+            <div class="visit__map-card">
+              <p>12 Blossom Lane, Green Park, Bengaluru 560001</p>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001" target="_blank" rel="noreferrer">Get directions</a>
+            </div>
+            <div class="visit__map-embed">
+              <iframe src="https://maps.google.com/maps?q=12%20Blossom%20Lane%2C%20Green%20Park%2C%20Bengaluru%20560001&amp;output=embed&amp;z=15" title="Little Blossoms Play School on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
       </section>
