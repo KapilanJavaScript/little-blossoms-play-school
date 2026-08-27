@@ -269,14 +269,14 @@
 /* Corner flower shadows */
     .section, .hero, .footer { position: relative; }
     .section > *:not(.corner-flower), .hero > *:not(.corner-flower), .footer > *:not(.corner-flower) { position: relative; z-index: 1; }
-    .corner-flower { position: absolute; z-index: 0; width: clamp(140px,18vw,220px); color: var(--ink); filter: drop-shadow(0 6px 10px rgb(58 46 41 / .18)); opacity: .92; pointer-events: none; transform-origin: center; will-change: transform; }
-    .corner-flower--bl { left: 12px; bottom: 12px; }
-    .corner-flower--tr { right: 12px; top: 12px; }
-    .corner-flower--br { right: 12px; bottom: 12px; }
-    .corner-flower--tl { left: 12px; top: 12px; }
-    .corner-flower + .corner-flower { width: clamp(90px,12vw,140px); opacity: .85; }
-    .footer .corner-flower { opacity: .95; }
-    @media (max-width: 640px) { .corner-flower { width: 120px; } .corner-flower + .corner-flower { width: 76px; } }
+    .corner-flower { position: absolute; z-index: 0; width: clamp(104px,13vw,168px); color: var(--ink); filter: drop-shadow(0 6px 10px rgb(58 46 41 / .18)); opacity: .9; pointer-events: none; transform-origin: center; will-change: transform; }
+    .corner-flower--bl { left: 6px; bottom: 6px; }
+    .corner-flower--tr { right: 6px; top: 6px; }
+    .corner-flower--br { right: 6px; bottom: 6px; }
+    .corner-flower--tl { left: 6px; top: 6px; }
+    .corner-flower + .corner-flower { width: clamp(70px,9vw,104px); opacity: .82; }
+    .footer .corner-flower { opacity: .92; }
+    @media (max-width: 640px) { .corner-flower { width: 78px; } .corner-flower + .corner-flower { width: 56px; } }
 
 
     /* Photo styles */
