@@ -918,6 +918,9 @@
     })();
 
     /* Book-a-visit form */
+    /* Google Sheets lead capture — replace with your Apps Script Web App URL
+       (Deploy → New deployment → Web app → Copy URL) */
+    var LEAD_WEBAPP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
     var form = document.getElementById('visit-form');
     var nameEl = document.getElementById('f-name');
     var childEl = document.getElementById('f-child');
@@ -938,6 +941,27 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var text = 'Hi Little Blossoms! I\'d like to book a visit.\nParent: ' + nameEl.value + '\nChild: ' + (childEl.value || 'Not said') + '\nPhone: ' + phoneEl.value + '\nProgram: ' + programEl.value + '\nChild\'s age: ' + ageEl.value + '\nCentre: ' + centreEl.value + '\nI agree to be contacted by Little Blossoms.';
+      /* Google Sheets lead capture (silent — never blocks WhatsApp) */
+      try {
+        if (LEAD_WEBAPP_URL && LEAD_WEBAPP_URL.indexOf('http') === 0) {
+          var leadBody = new URLSearchParams({
+            Parent: nameEl.value,
+            Child: childEl.value || '',
+            Mobile: phoneEl.value,
+            Program: programEl.value || 'Not sure yet',
+            City: '',
+            Centre: centreEl.value || '',
+            Message: "Child's age: " + (ageEl.value || 'Not said'),
+            Source: 'Website Form'
+          }).toString();
+          fetch(LEAD_WEBAPP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: leadBody
+          }).catch(function () {});
+        }
+      } catch (err) { /* never block the parent */ }
       window.open('https://wa.me/919000000000?text=' + encodeURIComponent(text), '_blank');
       submit.textContent = 'Opening WhatsApp...';
     });
